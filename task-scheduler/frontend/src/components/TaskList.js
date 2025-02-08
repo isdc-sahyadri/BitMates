@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { fetchTasks } from "../services/taskService";
 
-const TaskList = () => {
+const TaskList = ({ tasksUpdated }) => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     fetchTasks().then(setTasks);
-  }, []);
+  }, [tasksUpdated]); // Add tasksUpdated as a dependency
 
   return (
     <div>

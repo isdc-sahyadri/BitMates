@@ -14,7 +14,7 @@ function App() {
       <h1>Task Scheduler Dashboard</h1>
       <p>Manage and track your tasks efficiently!</p>
       <TaskForm onTaskAdded={handleTaskAdded} />
-      <TaskList key={tasksUpdated} />
+      <TaskList tasksUpdated={tasksUpdated} /> {/* Pass tasksUpdated as a prop */}
     </div>
   );
 }
