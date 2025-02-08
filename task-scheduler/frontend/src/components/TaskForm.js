@@ -3,51 +3,70 @@ import { addTask } from "../services/taskService";
 import "./TaskForm.css";
 
 const TaskForm = ({ onTaskAdded }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState("Medium");
-  const [dueDate, setDueDate] = useState("");
-  const [assignedTo, setAssignedTo] = useState("");
+  const [task, setTask] = useState({
+    title: "",
+    description: "",
+    priority: "Medium",
+    dueDate: "",
+    assignedTo: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTask((prevTask) => ({
+      ...prevTask,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addTask({ title, description, priority, dueDate, assignedTo });
+    console.log("Submitting task:", task);
+    await addTask(task);
     onTaskAdded();
-    setTitle("");
-    setDescription("");
-    setPriority("Medium");
-    setDueDate("");
-    setAssignedTo("");
+
+    // Reset form
+    setTask({
+      title: "",
+      description: "",
+      priority: "Medium",
+      dueDate: "",
+      assignedTo: "",
+    });
   };
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>
       <input
         type="text"
+        name="title"
         placeholder="Task Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={task.title}
+        onChange={handleChange}
       />
       <textarea
+        name="description"
         placeholder="Task Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        value={task.description}
+        onChange={handleChange}
       ></textarea>
-      <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+      <select name="priority" value={task.priority} onChange={handleChange}>
         <option value="Low">Low</option>
         <option value="Medium">Medium</option>
         <option value="High">High</option>
       </select>
       <input
         type="date"
-        value={dueDate}
-        onChange={(e) => setDueDate(e.target.value)}
+        name="dueDate"
+        value={task.dueDate}
+        onChange={handleChange}
       />
       <input
         type="text"
+        name="assignedTo"
         placeholder="Assigned To (User ID)"
-        value={assignedTo}
-        onChange={(e) => setAssignedTo(e.target.value)}
+        value={task.assignedTo}
+        onChange={handleChange}
       />
       <button type="submit">Add Task</button>
     </form>
