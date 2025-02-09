@@ -1,0 +1,54 @@
+# **Task Scheduler** 📝  
+
+A simple task management app built with **React, Node.js, Express, and MongoDB**. Users can **create and delete tasks** with a clean UI and authentication.  
+
+## **🚀 Features**  
+✅ User login/logout  
+✅ Add and delete tasks  
+✅ RESTful API with Express & MongoDB  
+
+## **🛠 Tech Stack**  
+**Frontend:** React, React Router  
+**Backend:** Node.js, Express.js  
+**Database:** MongoDB  
+
+## **💻 Setup**  
+
+### 1️⃣ Clone the repo:  
+```sh
+git clone https://github.com/your-username/task-scheduler.git  
+cd task-scheduler
+```
+
+### 2️⃣ Run the backend:  
+```sh
+cd backend  
+npm install  
+node server.js  
+```
+
+### 3️⃣ Run the frontend:  
+```sh
+cd frontend  
+npm install  
+npm start  
+```
+
+## **🤔 Problem Statement & What the Project Does**  
+Managing tasks efficiently is crucial for productivity. This project helps users **add and delete tasks**, ensuring better organization and time management.  
+
+## **🌍 Why We Chose This Problem Statement**  
+Task management is essential for students, professionals, and teams. A lightweight, easy-to-use tool can help streamline daily planning without unnecessary complexity.  
+
+## **⚙️ How It Works**  
+1️⃣ **User logs in** to access the task manager.  
+2️⃣ **Tasks can be created** with a simple input form.  
+3️⃣ **Tasks can be deleted** when no longer needed.  
+4️⃣ **Data is stored in MongoDB**, ensuring persistence.  
+
+## **🏆 Challenges Faced & How We Overcame Them**  
+- **🔹 Authentication Implementation:** Used `localStorage` to persist login state.  
+- **🔹 API Integration:** Debugged CORS issues when connecting frontend and backend.  
+- **🔹 State Management:** Ensured real-time task updates with React’s `useState` and `useEffect`.  
+
+```
