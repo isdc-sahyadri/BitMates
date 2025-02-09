@@ -1,22 +1,33 @@
-import React, { useState } from "react";
-import TaskList from "./components/TaskList";
-import TaskForm from "./components/TaskForm";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import TaskForm from "./TaskForm"; // Import TaskForm
+import TaskList from "./TaskList";
 
-function App() {
-  const [tasksUpdated, setTasksUpdated] = useState(false);
+const App = () => {
+  const [tasks, setTasks] = useState([]);
 
-  const handleTaskAdded = () => {
-    setTasksUpdated(!tasksUpdated);
+  // Function to fetch the latest tasks
+  const refreshTasks = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/tasks");
+      setTasks(response.data); // Set tasks from response
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
   };
+
+  // Fetch tasks when the component mounts
+  useEffect(() => {
+    refreshTasks();
+  }, []);
 
   return (
     <div>
-      <h1>Task Scheduler Dashboard</h1>
-      <p>Manage and track your tasks efficiently!</p>
-      <TaskForm onTaskAdded={handleTaskAdded} />
-      <TaskList tasksUpdated={tasksUpdated} /> {/* Pass tasksUpdated as a prop */}
+      <h1>Task Scheduler</h1>
+      <TaskForm refreshTasks={refreshTasks} /> {/* Pass refreshTasks to TaskForm */}
+      <TaskList tasks={tasks} refreshTasks={refreshTasks} /> {/* Pass refreshTasks to TaskList */}
     </div>
   );
-}
+};
 
 export default App;
