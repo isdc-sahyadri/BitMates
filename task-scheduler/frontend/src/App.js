@@ -5,7 +5,7 @@ import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
 import Login from "./Login"; // Import Login Page
 
-const TaskScheduler = () => {
+const TaskScheduler = ({ logout }) => {
   const [tasks, setTasks] = useState([]);
 
   // Function to fetch the latest tasks
@@ -25,6 +25,7 @@ const TaskScheduler = () => {
   return (
     <div>
       <h1>Task Scheduler</h1>
+      <button onClick={logout} style={{ marginBottom: "10px" }}>Logout</button>
       <TaskForm refreshTasks={refreshTasks} />
       <TaskList tasks={tasks} refreshTasks={refreshTasks} />
     </div>
@@ -32,9 +33,13 @@ const TaskScheduler = () => {
 };
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem("auth") === "true" // Persist login state
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check login state from localStorage when the component mounts
+  useEffect(() => {
+    const auth = localStorage.getItem("auth") === "true";
+    setIsAuthenticated(auth);
+  }, []);
 
   const login = () => {
     localStorage.setItem("auth", "true");
@@ -53,7 +58,7 @@ const App = () => {
           path="/"
           element={
             isAuthenticated ? (
-              <TaskScheduler />
+              <TaskScheduler logout={logout} />
             ) : (
               <Navigate to="/login" />
             )
